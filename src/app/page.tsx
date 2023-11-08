@@ -1,113 +1,394 @@
-import Image from 'next/image'
+'use client'
 
-export default function Home() {
+import React, { useState } from 'react';
+import Image from 'next/image'
+import TestimonialsSlider from './components/testimonial-slider';
+
+interface FAQItem {
+  Category: string;
+  Question: string;
+  Answer: {
+    heading: string;
+    body: string;
+  };
+  isExpanded: boolean;
+}
+
+const DropdownOptions = ['All', 'Admissions', 'Harbour.Space', 'Program conditions', 'SCG', 'Living in Bangkok'];
+
+const Home: React.FC = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('All');
+  
+  const [faqItems, setFaqItems] = useState<FAQItem[]>([
+    {
+      Category: "Admissions",
+      Question: "Do I get a job placement upon graduation?",
+      Answer: {
+        heading: "What are my obligations?",
+        body:
+          "The majority of our students receive numerous job offers at the end of the second academic year of their Bachelor's programme and at the end of the first academic year of their Master's programme. The best applicants receive an offer from our industrial partners at the beginning of their programmes. Harbour.Space is highly recognized among innovative employers and is a strategic partner of B.Grimm multi-industry corporation with 140 years of history in Thailand. Together, we ensure students get the best knowledge about the current job market opportunities. We offer our students paid internships options during studies jointly with our industrial partners. Employers that hired graduates of Harbour.Space in the past include Google, IBM, Accenture, Typeform, Frog, and other tech-centric companies. Our industry-specific employability report could be provided to you separately during the admission process.",
+      },
+      isExpanded: false,
+    },
+    {
+      Category: "Program conditions",
+      Question: "What is the duration of the program?",
+      Answer: {
+        heading: "Program duration",
+        body: "The program duration is 2 years for a Master's degree and 4 years for a Bachelor's degree.",
+      },
+      isExpanded: false,
+    }
+  ]);
+
+  const filteredFaqItems = selectedOption === 'All' ? faqItems : faqItems.filter((item) => item.Category === selectedOption);
+
+  const handleDropdownToggle = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleOptionClick = (option: string) => {
+    setSelectedOption(option);
+    setIsDropdownOpen(false);
+  };
+
+  const toggleExpansion = (index: number) => {
+    const updatedItems = [...faqItems];
+    updatedItems[index].isExpanded = !updatedItems[index].isExpanded;
+    setFaqItems(updatedItems);
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className="min-h-screen flex-col items-center justify-between bg-white">
+      
+      {/* Header */}
+      <div className="w-full h-16 bg-indigo-500 flex items-center justify-start px-8">
+        <span className="text-white text-l font-['Apercu Pro'] uppercase">HARBOUR SPACE / </span>
+        <span className="text-white text-xs font-['Apercu Pro'] uppercase">  INTERACTION DESIGN</span>
+
+        <div className="absolute top-1 -right-[-8%] transform translate-y-1/2">
+
+          {/* Green circular button */}
+          <div className="bg-green-700 w-16 h-16 rounded-full flex items-center justify-center text-white font-['Apercu Pro'] text-xs text-center">
+            APPLY NOW
+          </div>
+        </div>
+
+        <div className="absolute top-1 -right-[1px] transform translate-y-1">
+
+          {/* Menu */}
+          <div className="w-16 h-16 flex items-center justify-center text-center">
+            {/* Menu Icon */}
+            <div className="w-6 h-6 cursor-pointer">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="text-white"
+              >
+                <path
+                  strokeLinecap="square"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16m-7 6h7"
+                />
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      {/* Container */}
+      <div className="container mx-auto mt-8 md:mt-8 p-8 md:p-12 lg:p-16 flex flex-row md:flex-col items-center justify-center">
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+        {/* Two-column layout */}
+        <div className="flex flex-col md:flex-row gap-8 mb-24">
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+          {/* Left column */}
+          <div className="md:w-1/2 relative flex justify-end">
+            {/* Background Icon */}
+            <div className="absolute -z-1">
+              <Image
+                src="/BackgroundIcon.png"
+                alt="Background Icon"
+                width={250}
+                height={250}
+              />
+              </div>
+            <div className="p-8 rounded-lg relative z-10">
+              <p className="text-indigo-500 text-4xl font-medium font-['Apercu Pro'] mb-4 relative z-1">Interaction Design Apprenticeship</p>
+              <p className="text-neutral-600 font-medium font-['Apercu Pro'] mb-4">A fully funded work-study program to launch your tech career </p>
+              <p className="text-neutral-600 font-light font-['Apercu Pro'] mb-8">Harbour.Space has partnered with SCG to empower driven talent and eliminate the barriers to accessing exceptional education and career opportunities through a Masters Fellowship. </p>
+              <div><span className="text-neutral-600 font-medium font-['Apercu Pro'] mb-4">Position:</span><span className="text-neutral-600 font-medium font-['Apercu Pro']"> </span><span className="text-neutral-600 font-light font-['Apercu Pro']">Marketing Performance</span></div>
+              <button className="bg-indigo-500 text-white rounded-full px-4 py-2 mt-4">Apply Now</button>
+            </div>
+          </div>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
+          {/* Right column */}
+          <div className="md:w-1/2 flex flex-col items-start">
+            <div className="flex items-center mb-4">
+              <Image
+                src="/Logo.png"
+                alt="Logo"
+                width={150}
+                height={150}
+              />
+              <div className="ml-12">
+                <p className="opacity-50 text-black font-light font-['Apercu Pro'] mb-1">Powered by:</p>
+                <p className="text-neutral-600 text-xl font-light font-['Apercu Pro']">Zeptolab</p>
+              </div>
+            </div>
+            <div className="flex-col justify-center items-start gap-4 border border-zinc-300 rounded p-8">
+              <div className="text-indigo-500 text-base font-medium font-['Apercu Pro']">Application closes in</div>
+              <div className="text-neutral-600 text-3xl font-light font-['Apercu Pro']">6 Day  :  22 Hrs  :  56 Min  :  13 Seg </div>
+            </div>
+            <div className="relative w-full">
+              <div className="absolute -z-1 w-[80%] bottom-1 right-1 transform translate-x-1/3 translate-y-1/2">
+                <Image
+                  src="/Background.png"
+                  alt="Background Picture"
+                  width={400}
+                  height={400}
+                  layout="responsive"
+                  objectFit="cover"
+                />
+              </div>
+              <div className="rounded-lg mt-12 border border-zinc-300 rounded p-8 relative">
+                <div className="flex justify-between">
+                  <div className="w-1/2 mr-12">
+                    <span className="text-indigo-500 text-base font-medium">Location<br/></span>
+                    <span className="text-neutral-600 text-base font-light">Bangkok</span>
+                  </div>
+                  <div className="w-1/2 ml-12">
+                    <span className="text-indigo-500 text-base font-medium">Duration<br/></span>
+                    <span className="text-neutral-600 text-base font-light">1 Year Full-Time</span>
+                  </div>
+                </div>
+                <div className="flex justify-between">
+                  <div className="w-1/2 mr-12">
+                    <span className="text-indigo-500 text-base font-medium">Start date<br/></span>
+                    <span className="text-neutral-600 text-base font-light">30 June 2020</span>
+                  </div>
+                  <div className="w-1/2 ml-12">
+                    <span className="text-indigo-500 text-base font-medium">End date <br/></span>
+                    <span className="text-neutral-600 text-base font-light">3 Aug 2020</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+        {/* Two-column layout */}
+        <div className="flex flex-col md:flex-row gap-8 mb-24">
+
+          {/* Left column with rounded pictures */}
+          <div className="w-1/2 relative flex align-center justify-center">
+            {/* First round picture */}
+            <div className="w-400 h-400 rounded-full overflow-hidden absolute -z-1">
+              <Image
+                src="/SecondImage.png"
+                alt="Second Picture"
+                width={400}
+                height={400}
+              />
+            </div>
+
+            {/* Original round picture */}
+            <div className="w-320 h-320 rounded-full overflow-hidden relative z-10">
+              <Image
+                src="/Image.png"
+                alt="Picture"
+                width={320}
+                height={320}
+              />
+            </div>
+          </div>
+
+          {/* Right column with text content */}
+          <div className="w-1/2 flex flex-col align-center justify-center">
+            <p className="text-indigo-500 text-4xl font-medium font-['Apercu Pro'] mb-8">
+              About the apprenticeship
+            </p>
+            <p className="text-neutral-600 font-light font-['Apercu Pro']">
+              Our scholarships are designed to give talented and driven young people from any background access to top-class education, experience, and network. We offer a fully-funded master’s degree alongside an apprenticeship and a guaranteed job upon graduation.
+            </p>
+          </div>
+        </div>
+
+        {/* Grid */}
+        <div className="flex md:w-full grid grid-cols-3 gap-8 mb-52">
+
+          {/* Box A */}
+          <div className="col-span-1 row-span-3 border border-zinc-300 rounded p-4">
+            <div className="text-indigo-500 text-base font-medium pb-2">Scholarship value</div>
+            <div className="text-neutral-600 text-5xl font-light pb-4">€31,300</div>
+
+            {/* Horizontal Line */}
+            <hr className="my-4 border-zinc-300 mt-[80%] mb-[20%]" />
+
+            <div className="flex grid grid-cols-2 gap-8">
+              <div className="col-span-1">
+                <span className="text-indigo-500 text-base font-medium">Tuition covered<br/></span>
+                <span className="text-neutral-600 text-base font-light">€20,900</span>
+              </div>
+              <div className="col-span-1">
+                <span className="text-indigo-500 text-base font-medium">Remaining<br/></span>
+                <span className="text-neutral-600 text-base font-light">€2,000</span>
+              </div>
+              <div className="col-span-2">
+                <span className="text-indigo-500 text-base font-medium">Living stipend<br/></span>
+                <span className="text-neutral-600 text-base font-light">€8,400 (€700/month)</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Box B */}
+          <div className="col-span-1 row-span-1 border border-zinc-300 rounded p-4">
+            <div className="text-indigo-500 text-base font-medium pb-2">Study commitment</div>
+            <div className="text-neutral-500 text-[26px] font-light pb-4">3 hours / day</div>
+            <hr className="my-4 w-8 border-zinc-300" />
+            <div className="text-neutral-600 text-base font-light">You will complete 15 modules to graduate. Daily classes are 3 hours, plus coursework to complete in your own time. </div>
+          </div>
+
+          {/* Box C */}
+          <div className="col-span-1 row-span-1 border border-zinc-300 rounded p-4">
+            <div className="text-indigo-500 text-base font-medium pb-2">Work commitment</div>
+            <div className="text-neutral-500 text-[26px] font-light pb-4">4 hours / day</div>
+            <hr className="my-4 w-8 border-zinc-300" />
+            <div className="text-neutral-600 text-base font-light">Immerse yourself in the professional world during your apprenticeship. You’ll learn the ropes from the best and get to apply your newly acquired knowledge in the field from day one.</div>
+          </div>
+
+          {/* Graduation Text with Horizontal Line */}
+          <div className="col-span-2 text-center relative">
+            <div className="text-neutral-600 text-base font-medium">GRADUATION</div>
+            <hr className="border-zinc-300 absolute w-full h-0.5 top-1/2 left-0 transform translate-y-(-50%)" />
+          </div>
+
+          {/* Box D */}
+          <div className="col-span-2 row-span-1 border border-zinc-300 rounded p-4">
+            <div className="text-indigo-500 text-base font-medium pb-2">A full-time contract</div>
+            <div className="text-neutral-500 text-[26px] font-light pb-4">1 Year / Full-Time</div>
+            <hr className="my-4 w-8 border-zinc-300" />
+            <div className="text-neutral-600 text-base font-light">You’ll be guaranteed a 1-year contract with SCG upon graduation.</div>
+          </div>
+        </div>
+
+        {/* Testimonials Slider */}
+        <div className="relative w-full flex align-center justify-center">
+              <div className="absolute -z-1 w-full h-full top-1 transform -translate-x-1 -translate-y-1">
+                <Image
+                  src="/SecondBackground.png"
+                  alt="Background 2 Picture"
+                  width={500}
+                  height={500}
+                  layout="responsive"
+                  objectFit="cover"
+                />
+              </div>
+          <div className="relative z-10 flex flex-col md:flex-row gap-8 mb-36">
+            <TestimonialsSlider />
+          </div>
+        </div>
+
+        {/* Two-column layout */}
+        <div className="flex flex-col md:flex-row gap-8 md:w-full">
+
+          {/* Left column */}
+          <div className="w-1/2 rounded-full justify-start"> 
+            <p className="text-indigo-500 text-4xl font-medium font-['Apercu Pro'] m-4">Frequently asked questions</p>
+          </div>
+
+          {/* Right column */}
+          <div className="w-1/2 flex flex-row items-start justify-end">
+            <p className="text-neutral-600 font-light font-['Apercu Pro'] mr-4 mt-8">
+              Filter by: 
+            </p>
+            {/* Dropdown */}
+            <div className="relative flex items-start justify-end mb-4">
+              <div className={`relative border border-zinc-300 bg-white ${isDropdownOpen ? 'rounded-[10%]' : 'rounded-full'} px-4 py-2 mt-4 ml-4 flex items-start cursor-pointer`} onClick={handleDropdownToggle}>
+                <div className="flex flex-col">
+                  <span className="text-indigo-500 text-lg font-medium font-['Apercu Pro'] mr-2">{selectedOption}</span>
+                  {isDropdownOpen && (<div className="flex flex-col">
+                  {DropdownOptions.filter(option => option !== selectedOption).map((option) => (
+                      <span
+                        key={option}
+                        className="text-indigo-500 text-lg font-medium font-['Apercu Pro'] mr-2 cursor-pointer py-1 hover:text-black"
+                        onClick={() => {
+                          handleOptionClick(option);
+                          handleDropdownToggle();
+                        }}
+                      >
+                        {option}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                </div>
+                <button>
+                  <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 text-indigo-500 mt-2 transform ${isDropdownOpen ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M3.293 5.293a1 1 0 0 1 1.414-1.414L10 10.586l5.293-5.293a1 1 0 1 1 1.414 1.414l-6 6a1 1 0 0 1-1.414 0l-6-6z" clipRule="evenodd" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* FAQ Section */}
+        <div className="mt-8 md:w-full">
+          {filteredFaqItems.map((item, index) => (
+            <div key={index} className="flex items-start justify-start mb-4">
+              {/* Horizontal Line */}
+             <hr className="my-4 border-zinc-300" />
+
+              {/* First Column */}
+              <div className="text-indigo-500 font-medium font-['Apercu Pro'] m-4 flex-shrink-0 w-1/3 justify-start">
+                {item.Category}
+              </div>
+
+              {/* Second Column */}
+              <div className="text-neutral-600 font-medium font-['Apercu Pro'] m-4 flex-shrink-0 w-1/3 justify-start">
+                {item.Question}
+                {item.Answer && item.isExpanded && (
+                  <div className="flex flex-col">
+                    <span className="text-neutral-600 font-medium font-['Apercu Pro'] mb-4">
+                      {item.Answer.heading}
+                      <br />
+                    </span>
+                    <span className="text-neutral-600 font-light font-['Apercu Pro'] mt-4">
+                      {item.Answer.body}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {/* Third Column - Expand Icon */}
+              <div className="flex m-4 items-center justify-end flex-grow">
+                <button onClick={() => toggleExpansion(index)}>
+                  {item.isExpanded ? (
+                    <span>
+                      <div className="bg-indigo-500 rounded-full w-8 h-8 flex items-center justify-center text-white">
+                        <span className="text-2xl font-light">-</span>
+                      </div>
+                    </span>
+                  ) : (
+                    <span>
+                      <div className="bg-white border border-zinc-3000 rounded-full w-8 h-8 flex items-center justify-center text-zinc-300">
+                        <span className="text-2xl font-light">+</span>
+                      </div>
+                    </span>
+                  )}
+                </button>
+              </div>
+          </div>
+          ))}
+        </div>
       </div>
     </main>
   )
-}
+};
+
+export default Home;

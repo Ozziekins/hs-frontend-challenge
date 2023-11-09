@@ -1,0 +1,67 @@
+.flare {
+    position: fixed;
+    border: 3px solid #7986cb;
+    border-radius: 50%;
+    /* mix-blend-mode: screen; */
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 999999 !important ;
+    /* backdrop-filter: blur(1px); */
+    background-color: #7986cb;
+    transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
+    cursor: none !important;
+    opacity: 0.5;
+  }
+  
+  /* We need to remove this custom cursor in mobile devices */
+  @media screen and (max-width: 768px) {
+    .flare {
+      width: 0;
+      height: 0;
+      transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
+    }
+  }
+  .flare.pointer {
+    opacity: 0.5 !important;
+    transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
+  }
+
+  .drag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    content: "Drag";
+    color: white;
+    padding: 8px;
+    font-size: 14px;
+    text-align: center;
+    /* border: 3px solid #7986cb; */
+    border-radius: 50%;
+    /* mix-blend-mode: screen; */
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 999999 !important ;
+    /* backdrop-filter: blur(1px); */
+    background-color: #7986cb;
+    transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
+    cursor: none !important;
+    opacity: 0.7;
+  }
+  
+  /* We need to remove this custom cursor in mobile devices */
+  @media screen and (max-width: 768px) {
+    .drag {
+      width: 0;
+      height: 0;
+      transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
+    }
+  }
+  .drag.visible {
+    opacity: 0.7 !important;
+    transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
+  }
+
+  .sliderContainer {
+    cursor: none;
+  }

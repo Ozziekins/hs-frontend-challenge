@@ -1,5 +1,9 @@
-import React from 'react';
+'use client'
+
+import React, { useState } from 'react';
 import Image from 'next/image';
+import CustomCursor from './custom-cursor'
+import styles from '../styles/TestimonialsSlider.module.css'
 
 const testimonials = [
   {
@@ -7,7 +11,7 @@ const testimonials = [
     designation: 'Interaction Design Fellow ‘19',
     text: 'This Fellowship was a turning point in my career. I wouldn’t be where I am today without the financial support and experienced offered through the program.',
     education: 'Education   ·   B.A. Visual Design',
-    linkedin: '#',
+    linkedin: 'https://www.linkedin.com/in/irene-pereyra/',
     imageUrl: '/Image2.png',
   },
   // {
@@ -15,7 +19,7 @@ const testimonials = [
   //   designation: 'Interaction Design Fellow ‘19',
   //   text: 'This Fellowship was a turning point in my career. I wouldn’t be where I am today without the financial support and experienced offered through the program.',
   //   education: 'Education   ·   B.A. Visual Design',
-  //   linkedin: '#',
+  //   linkedin: 'https://www.linkedin.com/in/irene-pereyra/',
   //   imageUrl: '/Image2.png',
   // },
   // {
@@ -24,15 +28,28 @@ const testimonials = [
   //   designation: 'Interaction Design Fellow ‘19',
   //   text: 'This Fellowship was a turning point in my career. I wouldn’t be where I am today without the financial support and experienced offered through the program.',
   //   education: 'Education   ·   B.A. Visual Design',
-  //   linkedin: '#',
+  //   linkedin: 'https://www.linkedin.com/in/irene-pereyra/',
   //   imageUrl: '/Image2.png',
   // mageUrl: '/Image2.png',
   // }
 ];
 
 const TestimonialsSlider: React.FC = () => {
+  const [isCustomCursorVisible, setIsCustomCursorVisible] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsCustomCursorVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsCustomCursorVisible(false);
+  };
+
   return (
-    <div className="flex space-x-8 overflow-x-auto items-center justify-center mt-12">
+    <div className={`flex space-x-8 overflow-x-auto items-center justify-center mt-12 ${styles.sliderContainer}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}>
+      <CustomCursor isVisible={isCustomCursorVisible} />
       {testimonials.map((testimonial, index) => (
         <div key={index} className="border border-zinc-300 rounded max-w-[50%]">
           <div className="bg-white p-4">

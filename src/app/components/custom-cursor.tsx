@@ -42,6 +42,7 @@ const CustomCursor: React.FC<CustomCursorProps> = ({ isVisible }) => {
             width: `${flareSizePointer}px`,
             height: `${flareSizePointer}px`,
         }}
+        data-testid="custom-cursor-pointer"
         ></div>
     );
     }
@@ -54,6 +55,7 @@ const CustomCursor: React.FC<CustomCursorProps> = ({ isVisible }) => {
             width: `${flareSizeVisible}px`,
             height: `${flareSizeVisible}px`,
             }}
+            data-testid="custom-cursor-visible"
         >Drag</div>
         );
     }

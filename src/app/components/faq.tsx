@@ -80,44 +80,44 @@ const FAQ: React.FC<FAQProps> = ({ selectedOption }) => {
     <div className="mt-8 md:w-full">
     {filteredFaqItems.map((item, index) => (
         <div key={index} className="flex flex-row md:flex-row items-start justify-between mb-4">
-        {/* Horizontal Line */}
-        <hr className="my-4 border-zinc-300 w-full md:w-1/3" />
+            {/* Horizontal Line */}
+            <hr className="border-zinc-300 w-full" />
 
-        {/* First Column */}
-        <div className="text-indigo-500 font-medium font-['Apercu Pro'] m-4 flex-shrink-0  md:w-1/3 md:justify-start hidden md:block">
-            {item.Category}
-        </div>
-
-        {/* Second Column */}
-        <div className="text-neutral-600 font-medium font-['Apercu Pro'] m-4 flex-shrink-0 w-2/3 md:w-1/3 md:justify-start">
-            {item.Question}
-            {item.Answer && item.isExpanded && (
-            <div className="flex flex-col">
-                <span className="text-neutral-600 font-light font-['Apercu Pro'] mt-4">
-                {item.Answer}
-                </span>
+            {/* First Column */}
+            <div className="text-indigo-500 font-medium font-['Apercu Pro'] m-4 flex-shrink-0  md:w-1/3 md:justify-start hidden md:block">
+                {item.Category}
             </div>
-            )}
-        </div>
 
-        {/* Third Column - Expand Icon */}
-        <div className="flex m-4 items-center justify-end flex-grow flex-shrink-0 w-1/3 md:w-1/3 md:justify-end">
-            <button onClick={() => toggleExpansion(index)}>
-            {item.isExpanded ? (
-                <span>
-                <div className="bg-indigo-500 rounded-full w-8 h-8 flex items-center justify-center text-white">
-                    <span className="text-2xl font-light">-</span>
+            {/* Second Column */}
+            <div className="text-neutral-600 font-medium font-['Apercu Pro'] m-4 flex-shrink-0 w-2/3 md:w-1/3 md:justify-start">
+                {item.Question}
+                {item.Answer && item.isExpanded && (
+                <div className="flex flex-col">
+                    <span className="text-neutral-600 font-light font-['Apercu Pro'] mt-4" data-testid="faq-answer">
+                    {item.Answer}
+                    </span>
                 </div>
-                </span>
-            ) : (
-                <span>
-                <div className="bg-white border border-zinc-300 rounded-full w-8 h-8 flex items-center justify-center text-zinc-300">
-                    <span className="text-2xl font-light">+</span>
-                </div>
-                </span>
-            )}
-            </button>
-        </div>
+                )}
+            </div>
+
+            {/* Third Column - Expand Icon */}
+            <div className="flex m-4 items-center justify-end flex-grow flex-shrink-0 w-1/3 md:w-1/3 md:justify-end">
+                <button onClick={() => toggleExpansion(index)} data-testid="expand-button">
+                {item.isExpanded ? (
+                    <span>
+                    <div className="bg-indigo-500 rounded-full w-8 h-8 flex items-center justify-center text-white">
+                        <span className="text-2xl font-light">-</span>
+                    </div>
+                    </span>
+                ) : (
+                    <span>
+                    <div className="bg-white border border-zinc-300 rounded-full w-8 h-8 flex items-center justify-center text-zinc-300">
+                        <span className="text-2xl font-light">+</span>
+                    </div>
+                    </span>
+                )}
+                </button>
+            </div>
         </div>
     ))}
     </div>

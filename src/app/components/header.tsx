@@ -24,7 +24,7 @@ const Header = () => {
           <div className="absolute top-1 -right-[1px] transform translate-y-1">
 
             {/* Menu */}
-            <button onClick={playSound} className="w-16 h-16 flex items-center justify-center text-center">
+            <button onClick={playSound} className="w-16 h-16 flex items-center justify-center text-center" data-testid="menu-button">
               {/* Menu Icon */}
               <div className="w-6 h-6 cursor-pointer">
                 <svg

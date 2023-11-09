@@ -24,6 +24,7 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({ testimonials = 
   const [testimonialWidth, setTestimonialWidth] = useState(100);
   const [isCustomCursorVisible, setIsCustomCursorVisible] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [translateXValue, setTranslateXValue] = useState(currentIndex);
 
   const handleMouseEnter = () => {
     setIsCustomCursorVisible(true);
@@ -35,12 +36,13 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({ testimonials = 
 
   const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     const dragDistance = Math.abs(info.offset.x);
-    const maxDragDistance = 100;
+    const maxDragDistance = 1;
 
     if (dragDistance > maxDragDistance) {
       const direction = info.offset.x > 0 ? -1 : 1;
       const nextIndex = (currentIndex + direction + totalTestimonials) % totalTestimonials;
       setCurrentIndex(nextIndex);
+      setTranslateXValue(-currentIndex * testimonialWidth * (totalTestimonials > 2 ? 1 : 2))
     }
   };
 
@@ -63,12 +65,8 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({ testimonials = 
     };
   }, []);
 
-  const translateXValue = -currentIndex * testimonialWidth * (totalTestimonials > 2 ? 1 : 2);
-  const dragConstraints = {
-    left: -(totalTestimonials - 2) * testimonialWidth,
-    right: totalTestimonials > 2 ? testimonialWidth * 2 : 0,
-  };
-
+  // const translateXValue = -currentIndex * testimonialWidth * (totalTestimonials > 2 ? 1 : 2);
+  
   return (
     <div className={`flex space-x-8 overflow-x-hidden items-center justify-center mt-12 ${styles.sliderContainer}`}
       onMouseEnter={handleMouseEnter}
@@ -95,7 +93,7 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({ testimonials = 
           >
             <div className="bg-white p-4">
               <div className="flex flex-row items-start mb-4">
-                <div className="w-16 h-16 rounded-full overflow-hidden mr-4">
+                <div className="rounded-full overflow-hidden mr-4">
                   <Image
                     src={testimonial.imageUrl}
                     alt={`${testimonial.name}'s profile photo`}

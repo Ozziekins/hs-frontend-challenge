@@ -114,7 +114,7 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({ testimonials = 
                     <div>
                       <a href={testimonial.linkedin} target="_blank" rel="noopener noreferrer">
                         <Image 
-                        src="/Twitter.png"
+                        src="/images/Twitter.png"
                         alt="linkedin"
                         width={50}
                         height={50}/>

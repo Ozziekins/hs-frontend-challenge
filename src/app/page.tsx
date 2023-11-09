@@ -23,6 +23,32 @@ interface TimeLeft {
 
 const DropdownOptions = ['All', 'Admissions', 'Harbour.Space', 'Program conditions', 'SCG', 'Living in Bangkok'];
 
+
+const originalTestimonials = [
+  {
+    name: 'Irene Pereyra',
+    designation: 'Interaction Design Fellow ‘19',
+    text: 'This Fellowship was a turning point in my career. I wouldn’t be where I am today without the financial support and experienced offered through the program.',
+    education: 'Education   ·   B.A. Visual Design',
+    linkedin: 'https://www.linkedin.com/in/irene-pereyra/',
+    imageUrl: '/Image2.png',
+  },
+  {
+    name: 'John Doe',
+    designation: 'Graphic Designer',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.',
+    education: 'Education   ·   B.A. Graphic Design',
+    linkedin: 'https://www.linkedin.com/in/john-doe/',
+    imageUrl: '/Image.png',
+  },
+];
+
+const numberOfDuplicates = 5; 
+
+const testimonials = Array(numberOfDuplicates)
+  .fill(originalTestimonials)
+  .flat();
+
 const Home: NextPage = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('All');
@@ -334,8 +360,8 @@ const Home: NextPage = () => {
                   objectFit="cover"
                 />
               </div>
-          <div className="relative z-1 flex flex-col md:flex-row gap-8 mb-36">
-            <TestimonialsSlider />
+          <div className="relative overflow-x-hidden z-1 flex flex-col md:flex-row gap-8 mb-36">
+            <TestimonialsSlider testimonials={testimonials} />
           </div>
         </div>
 

@@ -1,0 +1,34 @@
+/* styles.module.css */
+.rotateButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; 
+    border: 2px solid var(--color-zinc-300);
+    cursor: pointer;
+    transition: all 3.3s ease; 
+  }
+  
+  .expanded .rotateIcon {
+    transform: rotate(360deg); 
+    color: var(--color-indigo-500); 
+  }
+  
+  .rotateIcon {
+    transition: all 3.3s ease; 
+  }  
+  
+  .circularButton {
+    border-radius: 50%;
+  }
+  
+  .circularButton .next-btn-content {
+    color: var(--color-zinc-300);
+    background-color: var(--color-zinc-300); 
+  }
+  
+  .circularButton.expanded .next-btn-content {
+    color: var(--color-indigo-500); 
+    background-color: var(--color-indigo-500);
+  }
+  

@@ -1,43 +1,42 @@
 'use client'
 
-import React, { useState } from 'react';
-import Image from 'next/image'
+import React, { useState, useEffect } from 'react';
+import type { NextPage } from 'next'
+import Image from 'next/image';
+import { Button } from '@nextui-org/react';
+import styles from './styles/styles.module.css';
 import TestimonialsSlider from './components/testimonial-slider';
 
 interface FAQItem {
   Category: string;
   Question: string;
-  Answer: {
-    heading: string;
-    body: string;
-  };
+  Answer: string;
   isExpanded: boolean;
+}
+
+interface TimeLeft {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
 }
 
 const DropdownOptions = ['All', 'Admissions', 'Harbour.Space', 'Program conditions', 'SCG', 'Living in Bangkok'];
 
-const Home: React.FC = () => {
+const Home: NextPage = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('All');
-  
   const [faqItems, setFaqItems] = useState<FAQItem[]>([
     {
       Category: "Admissions",
       Question: "Do I get a job placement upon graduation?",
-      Answer: {
-        heading: "What are my obligations?",
-        body:
-          "The majority of our students receive numerous job offers at the end of the second academic year of their Bachelor's programme and at the end of the first academic year of their Master's programme. The best applicants receive an offer from our industrial partners at the beginning of their programmes. Harbour.Space is highly recognized among innovative employers and is a strategic partner of B.Grimm multi-industry corporation with 140 years of history in Thailand. Together, we ensure students get the best knowledge about the current job market opportunities. We offer our students paid internships options during studies jointly with our industrial partners. Employers that hired graduates of Harbour.Space in the past include Google, IBM, Accenture, Typeform, Frog, and other tech-centric companies. Our industry-specific employability report could be provided to you separately during the admission process.",
-      },
+      Answer: "The majority of our students receive numerous job offers at the end of the second academic year of their Bachelor's programme and at the end of the first academic year of their Master's programme. The best applicants receive an offer from our industrial partners at the beginning of their programmes. Harbour.Space is highly recognized among innovative employers and is a strategic partner of B.Grimm multi-industry corporation with 140 years of history in Thailand. Together, we ensure students get the best knowledge about the current job market opportunities. We offer our students paid internships options during studies jointly with our industrial partners. Employers that hired graduates of Harbour.Space in the past include Google, IBM, Accenture, Typeform, Frog, and other tech-centric companies. Our industry-specific employability report could be provided to you separately during the admission process.",
       isExpanded: false,
     },
     {
       Category: "Program conditions",
       Question: "What is the duration of the program?",
-      Answer: {
-        heading: "Program duration",
-        body: "The program duration is 2 years for a Master's degree and 4 years for a Bachelor's degree.",
-      },
+      Answer: "The program duration is 2 years for a Master's degree and 4 years for a Bachelor's degree.",
       isExpanded: false,
     }
   ]);
@@ -54,10 +53,55 @@ const Home: React.FC = () => {
   };
 
   const toggleExpansion = (index: number) => {
+    const audio = new Audio('/ping.mp3');
+    audio.play();
     const updatedItems = [...faqItems];
     updatedItems[index].isExpanded = !updatedItems[index].isExpanded;
     setFaqItems(updatedItems);
   };
+
+  const playSound = () => {
+    const audio = new Audio('/ping.mp3');
+    audio.play();
+  };
+
+  const calculateTimeLeft = (): TimeLeft => {
+    const deadline = new Date('2023-11-23T00:00:00Z');
+    const currentTime = new Date();
+    const difference = deadline.getTime() - currentTime.getTime();
+    if (difference <= 0) {
+      return {
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0
+      };
+    }
+
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+    return {
+      days,
+      hours,
+      minutes,
+      seconds
+    };
+  };
+
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []); 
 
   return (
     <main className="min-h-screen flex-col items-center justify-between bg-white">
@@ -70,15 +114,15 @@ const Home: React.FC = () => {
         <div className="absolute top-1 -right-[-8%] transform translate-y-1/2">
 
           {/* Green circular button */}
-          <div className="bg-green-700 w-16 h-16 rounded-full flex items-center justify-center text-white font-['Apercu Pro'] text-xs text-center">
+          <button onClick={playSound} className="bg-green-700 w-16 h-16 rounded-full flex items-center justify-center text-white font-['Apercu Pro'] text-xs text-center">
             APPLY NOW
-          </div>
+          </button>
         </div>
 
         <div className="absolute top-1 -right-[1px] transform translate-y-1">
 
           {/* Menu */}
-          <div className="w-16 h-16 flex items-center justify-center text-center">
+          <button onClick={playSound} className="w-16 h-16 flex items-center justify-center text-center">
             {/* Menu Icon */}
             <div className="w-6 h-6 cursor-pointer">
               <svg
@@ -96,7 +140,7 @@ const Home: React.FC = () => {
                 />
               </svg>
             </div>
-          </div>
+          </button>
         </div>
       </div>
 
@@ -117,12 +161,12 @@ const Home: React.FC = () => {
                 height={250}
               />
               </div>
-            <div className="p-8 rounded-lg relative z-10">
+            <div className="p-8 rounded-lg relative z-1">
               <p className="text-indigo-500 text-4xl font-medium font-['Apercu Pro'] mb-4 relative z-1">Interaction Design Apprenticeship</p>
               <p className="text-neutral-600 font-medium font-['Apercu Pro'] mb-4">A fully funded work-study program to launch your tech career </p>
               <p className="text-neutral-600 font-light font-['Apercu Pro'] mb-8">Harbour.Space has partnered with SCG to empower driven talent and eliminate the barriers to accessing exceptional education and career opportunities through a Masters Fellowship. </p>
               <div><span className="text-neutral-600 font-medium font-['Apercu Pro'] mb-4">Position:</span><span className="text-neutral-600 font-medium font-['Apercu Pro']"> </span><span className="text-neutral-600 font-light font-['Apercu Pro']">Marketing Performance</span></div>
-              <button className="bg-indigo-500 text-white rounded-full px-4 py-2 mt-4">Apply Now</button>
+              <button onClick={playSound} className="bg-indigo-500 text-white rounded-full px-4 py-2 mt-4">Apply Now</button>
             </div>
           </div>
 
@@ -142,7 +186,9 @@ const Home: React.FC = () => {
             </div>
             <div className="flex-col justify-center items-start gap-4 border border-zinc-300 rounded p-8">
               <div className="text-indigo-500 text-base font-medium font-['Apercu Pro']">Application closes in</div>
-              <div className="text-neutral-600 text-3xl font-light font-['Apercu Pro']">6 Day  :  22 Hrs  :  56 Min  :  13 Seg </div>
+              <div className="text-neutral-600 text-3xl font-light font-['Apercu Pro']">
+                {timeLeft.days} Days : {timeLeft.hours} Hrs : {timeLeft.minutes} Min : {timeLeft.seconds} Sec
+              </div>
             </div>
             <div className="relative w-full">
               <div className="absolute -z-1 w-[80%] bottom-1 right-1 transform translate-x-1/3 translate-y-1/2">
@@ -197,7 +243,7 @@ const Home: React.FC = () => {
             </div>
 
             {/* Original round picture */}
-            <div className="w-320 h-320 rounded-full overflow-hidden relative z-10">
+            <div className="w-320 h-320 rounded-full overflow-hidden relative z-1">
               <Image
                 src="/Image.png"
                 alt="Picture"
@@ -288,7 +334,7 @@ const Home: React.FC = () => {
                   objectFit="cover"
                 />
               </div>
-          <div className="relative z-10 flex flex-col md:flex-row gap-8 mb-36">
+          <div className="relative z-1 flex flex-col md:flex-row gap-8 mb-36">
             <TestimonialsSlider />
           </div>
         </div>
@@ -354,12 +400,8 @@ const Home: React.FC = () => {
                 {item.Question}
                 {item.Answer && item.isExpanded && (
                   <div className="flex flex-col">
-                    <span className="text-neutral-600 font-medium font-['Apercu Pro'] mb-4">
-                      {item.Answer.heading}
-                      <br />
-                    </span>
                     <span className="text-neutral-600 font-light font-['Apercu Pro'] mt-4">
-                      {item.Answer.body}
+                      {item.Answer}
                     </span>
                   </div>
                 )}
@@ -385,6 +427,36 @@ const Home: React.FC = () => {
               </div>
           </div>
           ))}
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="fixed bottom-0 w-full h-16 bg-white border border-zinc-300 flex flex-row items-center justify-center px-8 z-11">
+        <div className="flex flex-row items-center gap-16">
+          <div className="flex-col items-start">
+            <div className="text-neutral-600 text-base font-medium font-['Apercu Pro']">Zeptolab</div>
+            <div className="text-neutral-600 text-base font-light font-['Apercu Pro']">Marketing Performance</div>
+          </div>
+          <div className="flex-col items-start">
+            <div className="text-neutral-600 text-base font-medium font-['Apercu Pro']">Location</div>
+            <div className="text-neutral-600 text-base font-light font-['Apercu Pro']">Bangkok</div>
+          </div>
+          <div className="flex-col items-start">
+            <div className="text-neutral-600 text-base font-medium font-['Apercu Pro']">Duration</div>
+            <div className="text-neutral-600 text-base font-light font-['Apercu Pro']">1 Year Full-Time</div>
+          </div>
+          <div className="flex-col items-start">
+            <div className="text-neutral-600 text-base font-medium font-['Apercu Pro']">Start date</div>
+            <div className="text-neutral-600 text-base font-light font-['Apercu Pro']">3 Aug 2020</div>
+          </div>
+          <div className="flex-col items-start">
+            <div className="text-neutral-600 text-base font-medium font-['Apercu Pro']">Application deadline</div>
+              <div className="text-neutral-600 text-base font-light font-['Apercu Pro']">30 June 2020</div>
+          </div>
+          <div className="flex-col items-start">
+            <div className="text-neutral-600 text-base font-medium font-['Apercu Pro']">Application closes in</div>
+            <div className="text-neutral-600 text-base font-light font-['Apercu Pro']"> {timeLeft.days} Days : {timeLeft.hours} Hrs : {timeLeft.minutes} Min : {timeLeft.seconds} Sec</div>
+          </div>
         </div>
       </div>
     </main>

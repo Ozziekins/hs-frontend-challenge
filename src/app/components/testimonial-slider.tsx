@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, PanInfo } from 'framer-motion';
 import Image from 'next/image';
 import CustomCursor from './custom-cursor'
@@ -21,8 +21,7 @@ interface TestimonialsSliderProps {
 
 const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({ testimonials = [] }) => {
   const totalTestimonials = testimonials.length;
-  const testimonialWidth = 40;
-
+  const [testimonialWidth, setTestimonialWidth] = useState(100);
   const [isCustomCursorVisible, setIsCustomCursorVisible] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -44,6 +43,25 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({ testimonials = 
       setCurrentIndex(nextIndex);
     }
   };
+
+  useEffect(() => {
+    const updateTestimonialWidth = () => {
+      const vw = Math.min(document.documentElement.clientWidth, window.innerWidth || 0);
+      if (vw >= 768) {
+        setTestimonialWidth(40); // Set testimonial width to 40vw for screens wider than or equal to 768px
+      } else {
+        setTestimonialWidth(100); // Set testimonial width to 100vw for screens smaller than 768px
+      }
+    };
+
+    updateTestimonialWidth();
+
+    window.addEventListener('resize', updateTestimonialWidth);
+
+    return () => {
+      window.removeEventListener('resize', updateTestimonialWidth);
+    };
+  }, []);
 
   const translateXValue = -currentIndex * testimonialWidth * (totalTestimonials > 2 ? 1 : 2);
   const dragConstraints = {
@@ -71,6 +89,9 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({ testimonials = 
           <div
             key={index}
             className={`border border-zinc-300 rounded min-w-[20%]`}
+            style={{
+              width: `${testimonialWidth}%`,
+            }}
           >
             <div className="bg-white p-4">
               <div className="flex flex-row items-start mb-4">

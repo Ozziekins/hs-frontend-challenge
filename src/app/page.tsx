@@ -171,7 +171,7 @@ const Home: NextPage = () => {
       </div>
 
       {/* Container */}
-      <div className="container mx-auto mt-8 md:mt-8 p-8 md:p-12 lg:p-16 flex flex-row md:flex-col items-center justify-center">
+      <div className="container mx-auto mt-8 md:mt-8 p-8 md:p-12 lg:p-16 flex flex-col md:flex-col items-center justify-center">
 
         {/* Two-column layout */}
         <div className="flex flex-col md:flex-row gap-8 mb-24">
@@ -217,7 +217,7 @@ const Home: NextPage = () => {
               </div>
             </div>
             <div className="relative w-full">
-              <div className="absolute -z-1 w-[80%] bottom-1 right-1 transform translate-x-1/3 translate-y-1/2">
+              <div className="absolute -z-1 w-[80%] bottom-1 right-1 transform translate-x-1/3 translate-y-1/2 hidden md:block">
                 <Image
                   src="/Background.png"
                   alt="Background Picture"
@@ -257,7 +257,7 @@ const Home: NextPage = () => {
         <div className="flex flex-col md:flex-row gap-8 mb-24">
 
           {/* Left column with rounded pictures */}
-          <div className="w-1/2 relative flex align-center justify-center">
+          <div className="md:w-1/2 relative flex align-center justify-center">
             {/* First round picture */}
             <div className="w-400 h-400 rounded-full overflow-hidden absolute -z-1">
               <Image
@@ -280,7 +280,7 @@ const Home: NextPage = () => {
           </div>
 
           {/* Right column with text content */}
-          <div className="w-1/2 flex flex-col align-center justify-center">
+          <div className="md:w-1/2 flex flex-col align-center justify-center mt-12">
             <p className="text-indigo-500 text-4xl font-medium font-['Apercu Pro'] mb-8">
               About the apprenticeship
             </p>
@@ -291,17 +291,17 @@ const Home: NextPage = () => {
         </div>
 
         {/* Grid */}
-        <div className="flex md:w-full grid grid-cols-3 gap-8 mb-52">
+        <div className="flex w-full flex-row md:flex-cols grid md:grid-cols-3 gap-8 mb-52">
 
           {/* Box A */}
-          <div className="col-span-1 row-span-3 border border-zinc-300 rounded p-4">
+          <div className="col-span-2 md:col-span-1 row-span-2 md:row-span-3 border border-zinc-300 rounded p-4">
             <div className="text-indigo-500 text-base font-medium pb-2">Scholarship value</div>
             <div className="text-neutral-600 text-5xl font-light pb-4">€31,300</div>
 
             {/* Horizontal Line */}
-            <hr className="my-4 border-zinc-300 mt-[80%] mb-[20%]" />
+            <hr className="my-4 border-zinc-300 md:mt-[80%] md:mb-[20%]" />
 
-            <div className="flex grid grid-cols-2 gap-8">
+            <div className="w-full grid md:grid-cols-2 gap-8">
               <div className="col-span-1">
                 <span className="text-indigo-500 text-base font-medium">Tuition covered<br/></span>
                 <span className="text-neutral-600 text-base font-light">€20,900</span>
@@ -318,17 +318,17 @@ const Home: NextPage = () => {
           </div>
 
           {/* Box B */}
-          <div className="col-span-1 row-span-1 border border-zinc-300 rounded p-4">
+          <div className="col-span-2 md:col-span-1 md:row-span-1 border border-zinc-300 rounded p-4">
             <div className="text-indigo-500 text-base font-medium pb-2">Study commitment</div>
-            <div className="text-neutral-500 text-[26px] font-light pb-4">3 hours / day</div>
+            <div className="text-neutral-500 font-light pb-4">3 hours / day</div>
             <hr className="my-4 w-8 border-zinc-300" />
             <div className="text-neutral-600 text-base font-light">You will complete 15 modules to graduate. Daily classes are 3 hours, plus coursework to complete in your own time. </div>
           </div>
 
           {/* Box C */}
-          <div className="col-span-1 row-span-1 border border-zinc-300 rounded p-4">
+          <div className="col-span-2 md:col-span-1 md:row-span-1 border border-zinc-300 rounded p-4">
             <div className="text-indigo-500 text-base font-medium pb-2">Work commitment</div>
-            <div className="text-neutral-500 text-[26px] font-light pb-4">4 hours / day</div>
+            <div className="text-neutral-500 font-light pb-4">4 hours / day</div>
             <hr className="my-4 w-8 border-zinc-300" />
             <div className="text-neutral-600 text-base font-light">Immerse yourself in the professional world during your apprenticeship. You’ll learn the ropes from the best and get to apply your newly acquired knowledge in the field from day one.</div>
           </div>
@@ -340,7 +340,7 @@ const Home: NextPage = () => {
           </div>
 
           {/* Box D */}
-          <div className="col-span-2 row-span-1 border border-zinc-300 rounded p-4">
+          <div className="col-span-2  row-span-1 md:row-span-1 border border-zinc-300 rounded p-4">
             <div className="text-indigo-500 text-base font-medium pb-2">A full-time contract</div>
             <div className="text-neutral-500 text-[26px] font-light pb-4">1 Year / Full-Time</div>
             <hr className="my-4 w-8 border-zinc-300" />
@@ -350,7 +350,7 @@ const Home: NextPage = () => {
 
         {/* Testimonials Slider */}
         <div className="relative w-full flex align-center justify-center">
-              <div className="absolute -z-1 w-full h-full top-1 transform -translate-x-1 -translate-y-1">
+              <div className="absolute -z-1 w-full h-full top-1 transform -translate-x-1 -translate-y-1 hidden md:block">
                 <Image
                   src="/SecondBackground.png"
                   alt="Background 2 Picture"
@@ -366,20 +366,20 @@ const Home: NextPage = () => {
         </div>
 
         {/* Two-column layout */}
-        <div className="flex flex-col md:flex-row gap-8 md:w-full">
+        <div className="flex flex-col md:flex-row gap-4 md:w-full">
 
           {/* Left column */}
-          <div className="w-1/2 rounded-full justify-start"> 
+          <div className="w-full md:w-1/2 rounded-full justify-start"> 
             <p className="text-indigo-500 text-4xl font-medium font-['Apercu Pro'] m-4">Frequently asked questions</p>
           </div>
 
           {/* Right column */}
-          <div className="w-1/2 flex flex-row items-start justify-end">
-            <p className="text-neutral-600 font-light font-['Apercu Pro'] mr-4 mt-8">
+          <div className="w-full md:w-1/2 flex flex-row md:flex-row items-start md:justify-end mr-8">
+            <p className="text-neutral-600 font-light font-['Apercu Pro'] md:mr-4 mt-8 mb-4">
               Filter by: 
             </p>
             {/* Dropdown */}
-            <div className="relative flex items-start justify-end mb-4">
+            <div className="relative flex flex-col md:flex-row items-start justify-end mb-4">
               <div className={`relative border border-zinc-300 bg-white ${isDropdownOpen ? 'rounded-[10%]' : 'rounded-full'} px-4 py-2 mt-4 ml-4 flex items-start cursor-pointer`} onClick={handleDropdownToggle}>
                 <div className="flex flex-col">
                   <span className="text-indigo-500 text-lg font-medium font-['Apercu Pro'] mr-2">{selectedOption}</span>
@@ -412,17 +412,17 @@ const Home: NextPage = () => {
         {/* FAQ Section */}
         <div className="mt-8 md:w-full">
           {filteredFaqItems.map((item, index) => (
-            <div key={index} className="flex items-start justify-start mb-4">
+            <div key={index} className="flex flex-row md:flex-row items-start justify-between mb-4">
               {/* Horizontal Line */}
-             <hr className="my-4 border-zinc-300" />
+              <hr className="my-4 border-zinc-300 w-full md:w-1/3" />
 
               {/* First Column */}
-              <div className="text-indigo-500 font-medium font-['Apercu Pro'] m-4 flex-shrink-0 w-1/3 justify-start">
+              <div className="text-indigo-500 font-medium font-['Apercu Pro'] m-4 flex-shrink-0  md:w-1/3 md:justify-start hidden md:block">
                 {item.Category}
               </div>
 
               {/* Second Column */}
-              <div className="text-neutral-600 font-medium font-['Apercu Pro'] m-4 flex-shrink-0 w-1/3 justify-start">
+              <div className="text-neutral-600 font-medium font-['Apercu Pro'] m-4 flex-shrink-0 w-2/3 md:w-1/3 md:justify-start">
                 {item.Question}
                 {item.Answer && item.isExpanded && (
                   <div className="flex flex-col">
@@ -434,7 +434,7 @@ const Home: NextPage = () => {
               </div>
 
               {/* Third Column - Expand Icon */}
-              <div className="flex m-4 items-center justify-end flex-grow">
+              <div className="flex m-4 items-center justify-end flex-grow flex-shrink-0 w-1/3 md:w-1/3 md:justify-end">
                 <button onClick={() => toggleExpansion(index)}>
                   {item.isExpanded ? (
                     <span>
@@ -444,44 +444,46 @@ const Home: NextPage = () => {
                     </span>
                   ) : (
                     <span>
-                      <div className="bg-white border border-zinc-3000 rounded-full w-8 h-8 flex items-center justify-center text-zinc-300">
+                      <div className="bg-white border border-zinc-300 rounded-full w-8 h-8 flex items-center justify-center text-zinc-300">
                         <span className="text-2xl font-light">+</span>
                       </div>
                     </span>
                   )}
                 </button>
               </div>
-          </div>
+            </div>
           ))}
         </div>
       </div>
 
       {/* Footer */}
-      <div className="fixed bottom-0 w-full h-16 bg-white border border-zinc-300 flex flex-row items-center justify-center px-8 z-11">
-        <div className="flex flex-row items-center gap-16">
-          <div className="flex-col items-start">
-            <div className="text-neutral-600 text-base font-medium font-['Apercu Pro']">Zeptolab</div>
-            <div className="text-neutral-600 text-base font-light font-['Apercu Pro']">Marketing Performance</div>
+      <div className="fixed bottom-0 w-full h-auto bg-white border border-zinc-300 flex flex-col md:flex-row items-center justify-center mt-8 px-8 z-11 hidden md:block">
+        <div className="flex flex-col md:flex-row items-center gap-8">
+          <div className="flex-col items-start mb-2 md:mb-0">
+            <div className="text-neutral-600 text-base md:text-lg font-medium font-['Apercu Pro']">Zeptolab</div>
+            <div className="text-neutral-600 text-base md:text-lg font-light font-['Apercu Pro']">Marketing Performance</div>
           </div>
-          <div className="flex-col items-start">
-            <div className="text-neutral-600 text-base font-medium font-['Apercu Pro']">Location</div>
-            <div className="text-neutral-600 text-base font-light font-['Apercu Pro']">Bangkok</div>
+          <div className="flex-col items-start mb-2 md:mb-0">
+            <div className="text-neutral-600 text-base md:text-lg font-medium font-['Apercu Pro']">Location</div>
+            <div className="text-neutral-600 text-base md:text-lg font-light font-['Apercu Pro']">Bangkok</div>
           </div>
-          <div className="flex-col items-start">
-            <div className="text-neutral-600 text-base font-medium font-['Apercu Pro']">Duration</div>
-            <div className="text-neutral-600 text-base font-light font-['Apercu Pro']">1 Year Full-Time</div>
+          <div className="flex-col items-start mb-2 md:mb-0">
+            <div className="text-neutral-600 text-base md:text-lg font-medium font-['Apercu Pro']">Duration</div>
+            <div className="text-neutral-600 text-base md:text-lg font-light font-['Apercu Pro']">1 Year Full-Time</div>
           </div>
-          <div className="flex-col items-start">
-            <div className="text-neutral-600 text-base font-medium font-['Apercu Pro']">Start date</div>
-            <div className="text-neutral-600 text-base font-light font-['Apercu Pro']">3 Aug 2020</div>
+          <div className="flex-col items-start mb-2 md:mb-0">
+            <div className="text-neutral-600 text-base md:text-lg font-medium font-['Apercu Pro']">Start date</div>
+            <div className="text-neutral-600 text-base md:text-lg font-light font-['Apercu Pro']">3 Aug 2020</div>
           </div>
-          <div className="flex-col items-start">
-            <div className="text-neutral-600 text-base font-medium font-['Apercu Pro']">Application deadline</div>
-              <div className="text-neutral-600 text-base font-light font-['Apercu Pro']">30 June 2020</div>
+          <div className="flex-col items-start mb-2 md:mb-0">
+            <div className="text-neutral-600 text-base md:text-lg font-medium font-['Apercu Pro']">Application deadline</div>
+            <div className="text-neutral-600 text-base md:text-lg font-light font-['Apercu Pro']">30 June 2020</div>
           </div>
-          <div className="flex-col items-start">
-            <div className="text-neutral-600 text-base font-medium font-['Apercu Pro']">Application closes in</div>
-            <div className="text-neutral-600 text-base font-light font-['Apercu Pro']"> {timeLeft.days} Days : {timeLeft.hours} Hrs : {timeLeft.minutes} Min : {timeLeft.seconds} Sec</div>
+          <div className="flex-col items-start mb-2 md:mb-0">
+            <div className="text-neutral-600 text-base md:text-lg font-medium font-['Apercu Pro']">Application closes in</div>
+            <div className="text-neutral-600 text-base md:text-lg font-light font-['Apercu Pro']">
+              {timeLeft.days} Days : {timeLeft.hours} Hrs : {timeLeft.minutes} Min : {timeLeft.seconds} Sec
+            </div>
           </div>
         </div>
       </div>

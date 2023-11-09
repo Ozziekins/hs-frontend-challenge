@@ -1,6 +1,13 @@
 # Harbour Space Frontend Challenge
 
-![CI/CD Status](https://github.com/username/repository-name/workflows/CI/CD/badge.svg)
+![React badge](https://img.shields.io/badge/made%20with-React-blue?style=plastic&logo=react)
+[![NextJS](https://img.shields.io/badge/uses-Next%20js-purple?style=plastic&logo=nextdotjs)](https://nextjs.org/)
+[![Jest](https://img.shields.io/badge/tested%20with-jest-orange?style=plastic&logo=jest)](https://jestjs.io/)
+[![Typescript](https://img.shields.io/badge/typed%20using-grey?style=plastic&logo=typescript)](https://www.typescriptlang.org/)
+[![Javascript](https://img.shields.io/badge/written%20in-grey?style=plastic&logo=javascript)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![react workflow](https://github.com/Ozziekins/hs-frontend-challenge/actions/workflows/main.yml/badge.svg)](https://github.com/Ozziekins/hs-frontend-challenge/actions/workflows/main.yml)
+<br>
+
 
 Welcome to my solution for the Harbour Space Frontend Challenge! I've successfully completed the challenge by building an adapted version of the Template Page for the Apprenticeship Programme. You can view the deployed application on Vercel: [Harbour Space Frontend Challenge](https://hs-frontend-challenge.vercel.app/)
 
